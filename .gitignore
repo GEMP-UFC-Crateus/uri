@@ -1,0 +1,9 @@
+# Compiled Object files
+*.o
+# Compiled class file
+*.class
+# Log file
+*.log
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.pyc
