@@ -2,12 +2,12 @@
 
 #include <bits/stdc++.h> // standard template library (STL)
 
-#define MAX_N 1001 // maximo valor que N pode atingir
+#define MAX 1001 // maximo valor que N pode atingir
 
 using namespace std;
 
-int sabores[MAX_N]; // vetor para armazenar os sabores dos mentos
-int pd[MAX_N][MAX_N]; // matriz pra armazenar valores ja calculados(pd = programacao dinamica)
+int sabores[MAX]; // vetor para armazenar os sabores dos mentos
+int pd[MAX][MAX]; // matriz pra armazenar valores ja calculados(pd = programacao dinamica)
 
 const int INF = numeric_limits <int>::max(); // contante para representar o valor infinito, no caso, o maior inteiro representavel.
 
