@@ -1,51 +1,52 @@
 #include <iostream>
 #include <cmath>
+#define MAX 1000001
 
 using namespace std;
 
-/*Andrea tem raz„o: o jogo È decidido antes mesmo de comeÁar a ser jogado. O que define o vencedor È a permutaÁ„o
-gerada. A partir disso, basta calcular o n˙mero de inversıes que existem no vetor. Se o n˙mero de inversıes for
-Ìmpar, ent„o Marcelo ser· o vencedor j· que ele sempre comeÁa jogando. Caso contr·rio, Carlos ser· o vencedor.*/
+using Int= unsigned long long int;
 
-/*Vetor de inteiros para armazenar a maior sequÍncia possÌvel (N=10^6).*/
-unsigned long long int vetor[1000001];
-unsigned long long int vetor_auxiliar[1000001];
+/*Andrea tem raz√£o: o jogo √© decidido antes mesmo de come√ßar a ser jogado. O que define o vencedor √© a permuta√ß√£o 
+gerada. A partir disso, basta calcular o n√∫mero de invers√µes que existem no vetor. Se o n√∫mero de invers√µes for 
+√≠mpar, ent√£o Marcelo ser√° o vencedor j√° que ele sempre come√ßa jogando. Caso contr√°rio, Carlos ser√° o vencedor.*/
 
+/*Vetor de inteiros para armazenar a maior sequ√™ncia poss√≠vel (N=10^6).*/
+Int vetor[MAX];
+Int vetor_auxiliar[MAX];
 
-/*A estratÈgia dessa funÁ„o È usar uma adaptaÁ„o do algoritmo Merge Sort para contar o n˙mero de inversıes
-utilizando, ao invÈs da forÁa bruta que gera um TLE, a tÈcnica de Divis„o e Conquista.*/
+/*A estrat√©gia dessa fun√ß√£o √© usar uma adapta√ß√£o do algoritmo Merge Sort para contar o n√∫mero de invers√µes 
+utilizando, ao inv√©s da for√ßa bruta que gera um TLE, a t√©cnica de Divis√£o e Conquista.*/
 
-unsigned long long int conta_inversoes(unsigned long long int inicio_vetor, unsigned long long int fim_vetor){
-
-    unsigned long long int tamanho_vetor,q,i,j,k,acc_esq,acc_dir,acc_intercalacao,
+Int conta_inversoes(Int inicio_vetor, Int fim_vetor){
+    
+    Int tamanho_vetor,q,i,j,k,acc_esq,acc_dir,acc_intercalacao,
     meio_vetor,acc_total=0;
-
+    
     tamanho_vetor=(fim_vetor-inicio_vetor+1);/*Tamanho do vetor*/
-
-    if (tamanho_vetor==1){return 0;}/*Se tem apenas uma posiÁ„o, ent„o n„o temos inversıes a contar*/
-
-    else{/*Se o vetor tem mais de uma posiÁ„o, precisamos contar o n˙mero de inversıes*/
-
-    q=(floor(tamanho_vetor/2)-1);/*N˙mero de posiÁıes a partir da inicial onde se encontra o ponto de
-    separaÁ„o do vetor. No piso na metade do intervalo investigado*/
+    
+    if (tamanho_vetor==1){return 0;}/*Se tem apenas uma posi√ß√£o, ent√£o n√£o temos invers√µes a contar*/
+    
+    else{/*Se o vetor tem mais de uma posi√ß√£o, precisamos contar o n√∫mero de invers√µes*/
+    
+    q=(floor(tamanho_vetor/2)-1);/*N√∫mero de posi√ß√µes a partir da inicial onde se encontra o ponto de 
+    separa√ß√£o do vetor. No piso na metade do intervalo investigado*/
     meio_vetor=inicio_vetor+q;
-    acc_esq=conta_inversoes(inicio_vetor,meio_vetor);/*Captura o n˙mero de inversıes da chamada recursiva ‡ esquerda*/
-    acc_dir=conta_inversoes(meio_vetor+1,fim_vetor);/*Captura o n˙mero de inversıes da chamada recursiva ‡ direita*/
-    acc_intercalacao=0;/*Ir· armazenar o n˙mero de inversıes observadas durante o intercalamento*/
-
-
-    /*Nessa seÁ„o, contamos quantas inversıes teremos ao intercalar o vetor.*/
+    acc_esq=conta_inversoes(inicio_vetor,meio_vetor);/*Captura o n√∫mero de invers√µes da chamada recursiva √† esquerda*/
+    acc_dir=conta_inversoes(meio_vetor+1,fim_vetor);/*Captura o n√∫mero de invers√µes da chamada recursiva √† direita*/
+    acc_intercalacao=0;/*Ir√° armazenar o n√∫mero de invers√µes observadas durante o intercalamento*/
+    
+    /*Nessa se√ß√£o, contamos quantas invers√µes teremos ao intercalar o vetor.*/
     i=inicio_vetor;
     j=meio_vetor+1;
-
+    
     /*Intercalando e ordenando*/
     for(k=0;k<tamanho_vetor;k++){
         if (i<=meio_vetor && j<=fim_vetor){
         if (vetor[i]>vetor[j]){
-            if (i!=meio_vetor) {acc_intercalacao+=((meio_vetor-i)+1);}/*Nesse caso, temos que contar as inversıes
-            de todos os demais elementos que est„o ‡ direita de i no vetor do lado esquerdo.*/
+            if (i!=meio_vetor) {acc_intercalacao+=((meio_vetor-i)+1);}/*Nesse caso, temos que contar as invers√µes 
+            de todos os demais elementos que est√£o √† direita de i no vetor do lado esquerdo.*/
             else {acc_intercalacao++;}
-
+            
             vetor_auxiliar[k]=vetor[j];
             j++;
         }
@@ -54,8 +55,8 @@ unsigned long long int conta_inversoes(unsigned long long int inicio_vetor, unsi
             i++;
         }
         }
-
-        /*Se um dos intervalos a serem intercalados j· acabou,ent„o continuamos apenas com o outro lado.*/
+        
+        /*Se um dos intervalos a serem intercalados j√° acabou,ent√£o continuamos apenas com o outro lado.*/
         else{
             if (i>meio_vetor){
                 vetor_auxiliar[k]=vetor[j];
@@ -67,26 +68,26 @@ unsigned long long int conta_inversoes(unsigned long long int inicio_vetor, unsi
             }
         }
     }
-
-    /*O total de inversıes do nÌvel da chamada recursiva atÈ o momento.*/
+    
+    /*O total de invers√µes do n√≠vel da chamada recursiva at√© o momento.*/
     acc_total+=acc_esq+acc_dir+acc_intercalacao;
-
-    /*Agora atualizamos o vetor vet de acordo com a ordenaÁ„o que armazenamos em v1.*/
+    
+    /*Agora atualizamos o vetor vet de acordo com a ordena√ß√£o que armazenamos em v1.*/
     i=inicio_vetor;
     for(k=0;k<tamanho_vetor;k++){
        vetor[i]=vetor_auxiliar[k];
        i++;
     }
     }
-
+    
     return acc_total;
 }
 
 int main()
 {
-    unsigned long long int n,x,i,j,acumulador;
-
-    /*Enquanto a entrada n n„o for 0....*/
+    Int n,x,i,j,acumulador;
+    
+    /*Enquanto a entrada n n√£o for 0....*/
     while (cin >> n && n!=0){
         i=0;
         while (i<n){/*Armazena os n valores no vetor global.*/
@@ -94,12 +95,12 @@ int main()
             vetor[i]=x;
             i++;
         }
-
-        /*Acumulador que armazenar· o n˙mero de inversıes de cada caso de teste*/
+        
+        /*Acumulador que armazenar√° o n√∫mero de invers√µes de cada caso de teste*/
         acumulador=conta_inversoes(0,n-1);
 
-        if (acumulador%2==0) {cout << "Carlos\n";}/*Se o n˙mero de inversıes for par, ent„o Carlos ser· o vencedor.*/
-        else {cout << "Marcelo\n";}/*Se o n˙mero de inversıes for Ìmpar, ent„o Marcelo ser· o vencedor.*/
+        if (acumulador%2==0) {cout << "Carlos\n";}/*Se o n√∫mero de invers√µes for par, ent√£o Carlos ser√° o vencedor.*/
+        else {cout << "Marcelo\n";}/*Se o n√∫mero de invers√µes for √≠mpar, ent√£o Marcelo ser√° o vencedor.*/
     }
     return 0;
 }
