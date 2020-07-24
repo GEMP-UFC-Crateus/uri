@@ -21,7 +21,7 @@ Int build_fib(Int value) {
         n = n_1 + n_2;
         // tam representa o tamanho do intervalo entre o fib(n) e o fib(n-1)
         // ou seja, a quantidade de fibonots neste intervalo
-        Int tam = n - n_1;
+        Int tam = n - n_1 - 1;
         // o k-esimo fibonot não pode ultrapassar MAX, e o intervalo nao pode ser vazio.
         if (k <= MAX && tam > 0) {
             // se o valor que eu estou buscando esta dentro do intervalo,
